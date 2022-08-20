@@ -4,7 +4,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'github', url: 'https://github.com/kishanth94/javawebapplication'
+                git credentialsId: 'github', url: 'https://github.com/imayam92/javawebapplication'
             }
         }
 	
@@ -53,7 +53,7 @@ pipeline{
 			], 
 			    credentialsId: 'nexus3', 
 			    groupId: 'in.javahome', 
-			    nexusUrl: '172.31.25.143:8081', 
+			    nexusUrl: '172.31.33.144:8081', 
 			    nexusVersion: 'nexus3', 
 			    protocol: 'http', 
 			    repository: nexusRepoName, 
@@ -69,9 +69,9 @@ pipeline{
                 sh """
 		    echo $WORKSPACE
 		    mv target/*.war target/javawebapplication.war
-                    scp -o StrictHostKeyChecking=no target/javawebapplication.war  ec2-user@172.31.25.215:/opt/tomcat8/webapps/
-                    ssh ec2-user@172.31.25.215 /opt/tomcat8/bin/shutdown.sh
-                    ssh ec2-user@172.31.25.215 /opt/tomcat8/bin/startup.sh
+                    scp -o StrictHostKeyChecking=no target/javawebapplication.war  ec2-user@172.31.39.202:/opt/tomcat8/webapps/
+                    ssh ec2-user@172.31.39.202 /opt/tomcat8/bin/shutdown.sh
+                    ssh ec2-user@172.31.39.202 /opt/tomcat8/bin/startup.sh
                 
                 """
                 }
@@ -85,12 +85,12 @@ pipeline{
 	      deleteDir() /* Clean Up our Workspace */
 	    }
 	    success {
-		mail to: 'kishanthisavailable@gmail.com',
+		mail to: 'imayam92@gmail.com',
 		   subject: "Success Build Pipeline: ${currentBuild.fullDisplayName}",
 		    body: "The pipeline ${env.BUILD_URL} completed successfully"
 	    }
 	    failure {
-  		mail to: 'kishanthisavailable@gmail.com',
+  		mail to: 'imayam92@gmail.com',
  		     subject: "Failed Build Pipeline: ${currentBuild.fullDisplayName}",
  		     body: "Something is wrong with ${env.BUILD_URL}"
  	    }
