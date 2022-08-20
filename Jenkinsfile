@@ -65,7 +65,7 @@ pipeline{
 	
         stage("Deploy to Tomcat Server"){
             steps{
-                sshagent(['tomcat-keypair']) {
+                sshagent(['jenkins']) {
                 sh """
 		    echo $WORKSPACE
 		    mv target/*.war target/javawebapplication.war
